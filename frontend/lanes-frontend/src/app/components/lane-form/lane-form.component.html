@@ -1,0 +1,29 @@
+<h2>{{ isEdit ? 'Edit Lane' : 'Create New Lane' }}</h2>
+
+<div *ngIf="errorMessage" style="color: red; margin-bottom: 15px;">
+  {{ errorMessage }}
+</div>
+
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label>Name *</label><br>
+    <input type="text" [(ngModel)]="lane.name" name="name" required style="width: 300px; padding: 8px;">
+  </div>
+
+  <div>
+    <label>Origin City</label><br>
+    <input type="text" [(ngModel)]="lane.originCity" name="originCity" style="width: 300px; padding: 8px;">
+  </div>
+
+  <div>
+    <label>Destination City</label><br>
+    <input type="text" [(ngModel)]="lane.destinationCity" name="destinationCity" style="width: 300px; padding: 8px;">
+  </div>
+
+  <br>
+  <button type="submit" [disabled]="loading" style="margin-right: 10px;">
+    {{ loading ? 'Saving...' : (isEdit ? 'Update' : 'Create') }}
+  </button>
+  
+  <button type="button" (click)="cancel()" [disabled]="loading">Cancel</button>
+</form>

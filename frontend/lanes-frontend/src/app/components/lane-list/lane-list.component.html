@@ -1,0 +1,48 @@
+<h2>Lanes</h2>
+
+<!-- Search Bar -->
+<div style="margin-bottom: 20px;">
+  <input 
+    type="number" 
+    [(ngModel)]="searchId" 
+    placeholder="Search by ID"
+    (keyup.enter)="searchById()"
+    style="padding: 8px; width: 220px; margin-right: 8px;">
+
+  <button (click)="searchById()">Search</button>
+  <button (click)="clearSearch()" style="margin-left: 8px;">Clear</button>
+</div>
+
+<button (click)="goToCreate()">+ Add New</button>
+
+<div *ngIf="loading">
+  <p>Loading...</p>
+</div>
+
+<table *ngIf="!loading" border="1" style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Origin City</th>
+      <th>Destination City</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let lane of filteredLanes">
+      <td>{{ lane.id }}</td>
+      <td>{{ lane.name }}</td>
+      <td>{{ lane.originCity || '-' }}</td>
+      <td>{{ lane.destinationCity || '-' }}</td>
+      <td>
+        <button (click)="editLane(lane.id!)">Edit</button>
+        <button (click)="deleteLane(lane.id!)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="!loading && filteredLanes.length === 0">
+  <p>No lanes found.</p>
+</div>
